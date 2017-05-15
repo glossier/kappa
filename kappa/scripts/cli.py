@@ -61,6 +61,20 @@ def deploy(ctx):
 
 
 @cli.command()
+@click.argument('json_data')
+@pass_ctx
+def invoke_str(ctx, json_data):
+    """Invoke the command synchronously"""
+    click.echo('invoking')
+    response = ctx.invoke(json_data)
+    log_data = base64.b64decode(response['LogResult'])
+    click.echo(log_data)
+    click.echo('Response:')
+    click.echo(response['Payload'].read())
+    click.echo('done')
+
+
+@cli.command()
 @click.argument('data_file', type=click.File('r'))
 @pass_ctx
 def invoke(ctx, data_file):
