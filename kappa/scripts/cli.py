@@ -65,12 +65,8 @@ def deploy(ctx):
 @pass_ctx
 def invoke_str(ctx, json_data):
     """Invoke the command synchronously"""
-    click.echo('invoking')
-    response = ctx.invoke(json_data)
-    log_data = base64.b64decode(response['LogResult'])
-    click.echo(log_data)
-    click.echo('Response:')
-    click.echo(response['Payload'].read())
+    click.echo('invoking async')
+    ctx.invoke_async(json_data)
     click.echo('done')
 
 
